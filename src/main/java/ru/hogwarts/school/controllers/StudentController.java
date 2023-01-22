@@ -20,8 +20,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public String hello() {
-        return "Hello world";
+    public List<Student> findAllStudents() {
+        return studentService.findAllStudents();
     }
 
     @GetMapping("{id}")
@@ -33,10 +33,10 @@ public class StudentController {
         return ResponseEntity.ok(foundStudent);
     }
 
-//    @GetMapping("{age}")
-//    public List<Student> sortAgeStudent (@PathVariable int age) {
-//        return studentService.findStudentFromAge(age);
-//    }
+    @GetMapping("/age/{age}")
+    public List<Student> sortAgeStudent (@PathVariable int age) {
+        return studentService.findStudentByAge(age);
+    }
 
     @PostMapping
     public Student createStudent (@RequestBody Student student) {

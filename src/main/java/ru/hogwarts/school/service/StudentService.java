@@ -33,14 +33,11 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-//    public List<Student> findStudentFromAge(int age) {
-//        List<Student> studentList = new ArrayList<>();
-//        for (Map.Entry<Long, Student> entry : studentMap.entrySet()) {
-//            if (entry.getValue().getAge() == age) {
-//                studentList.add(entry.getValue());
-//            }
-//        }
-//        return studentList;
-//    }
+    public List<Student> findStudentByAge(int age) {
+        return studentRepository.findByAge(age);
+    }
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
+    }
 
 }

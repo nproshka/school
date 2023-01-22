@@ -18,6 +18,10 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
+    @GetMapping
+    public List<Faculty> findAllFaculty () {
+        return facultyService.findAllFaculty();
+    }
     @GetMapping("{id}")
     public ResponseEntity<Faculty> getFacultyInfo (@PathVariable long id) {
         Faculty foundFaculty = facultyService.findFaculty(id);
@@ -27,10 +31,10 @@ public class FacultyController {
         return ResponseEntity.ok(foundFaculty);
     }
 
-//    @GetMapping("{color}")
-//    public List<Faculty> sortColorStudent (@PathVariable String color) {
-//        return facultyService.findFacultyFromColor(color);
-//    }
+    @GetMapping("/color/{color}")
+    public List<Faculty> sortColorStudent (@PathVariable String color) {
+        return facultyService.findFacultyByColor(color);
+    }
 
     @PostMapping
     public Faculty createFaculty (@RequestBody Faculty faculty) {
