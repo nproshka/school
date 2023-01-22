@@ -1,5 +1,7 @@
 package ru.hogwarts.school.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
@@ -16,13 +18,22 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("{id}")
-    public Faculty getFacultyInfo (@PathVariable long id) {
-        return facultyService.findFaculty(id);
+    @GetMapping
+    public List<Faculty> findAllFaculty () {
+        return facultyService.findAllFaculty();
     }
-    @GetMapping("{color}")
+    @GetMapping("{id}")
+    public ResponseEntity<Faculty> getFacultyInfo (@PathVariable long id) {
+        Faculty foundFaculty = facultyService.findFaculty(id);
+        if (foundFaculty == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(foundFaculty);
+    }
+
+    @GetMapping("/color/{color}")
     public List<Faculty> sortColorStudent (@PathVariable String color) {
-        return facultyService.findFacultyFromColor(color);
+        return facultyService.findFacultyByColor(color);
     }
 
     @PostMapping
@@ -32,13 +43,17 @@ public class FacultyController {
     }
 
     @PutMapping
-    public Faculty editFaculty (@RequestBody Faculty faculty) {
-        facultyService.editFaculty(faculty);
-        return faculty;
+    public ResponseEntity<Faculty> editFaculty (@RequestBody Faculty faculty) {
+        Faculty foundFaculty = facultyService.editFaculty(faculty);
+        if (foundFaculty == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(foundFaculty);
     }
 
     @DeleteMapping("{id}")
-    public Faculty deleteFaculty (@PathVariable long id) {
-        return facultyService.deleteFaculty(id);
+    public ResponseEntity deleteFaculty (@PathVariable long id) {
+       facultyService.deleteFaculty(id);
+        return ResponseEntity.ok().build();
     }
 }
