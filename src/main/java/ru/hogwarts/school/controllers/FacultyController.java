@@ -4,8 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -21,6 +23,15 @@ public class FacultyController {
     @GetMapping
     public List<Faculty> findAllFaculty () {
         return facultyService.findAllFaculty();
+    }
+    @GetMapping("/colorOrName")
+    public List<Faculty> findFacultyByColorOrName (@RequestParam(required = false) String color,
+                                                   @RequestParam(required = false) String name) {
+        return facultyService.findFacultyByColorOrName(color, name);
+    }
+    @GetMapping("/facultyStudents")
+    public Collection<Student> findAllStudentsOnFaculty (@RequestParam long id) {
+        return facultyService.findAllStudentsOnFaculty(id);
     }
     @GetMapping("{id}")
     public ResponseEntity<Faculty> getFacultyInfo (@PathVariable long id) {

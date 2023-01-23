@@ -37,6 +37,14 @@ public class StudentController {
     public List<Student> sortAgeStudent (@PathVariable int age) {
         return studentService.findStudentByAge(age);
     }
+    @GetMapping("/age")
+    public List<Student> sortAgeStudentBetween (@RequestParam int minAge, @RequestParam int maxAge) {
+        return studentService.findAllStudentsBetween(minAge, maxAge);
+    }
+    @GetMapping("/findFaculty")
+    public Faculty findFaculty (@RequestParam long id) {
+        return studentService.findStudentFaculty(id);
+    }
 
     @PostMapping
     public Student createStudent (@RequestBody Student student) {

@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -26,6 +27,9 @@ public class FacultyService {
     public Faculty findFaculty(long id) {
         return facultyRepository.findById(id).get();
     }
+    public Collection<Student> findAllStudentsOnFaculty(long id) {
+        return facultyRepository.getById(id).getStudents();
+    }
 
     public Faculty editFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
@@ -40,6 +44,9 @@ public class FacultyService {
     }
     public List<Faculty> findAllFaculty() {
         return facultyRepository.findAll();
+    }
+    public List<Faculty> findFacultyByColorOrName(String color, String name) {
+        return facultyRepository.findByColorIgnoreCaseOrNameIgnoreCase(color, name);
     }
 
 }
