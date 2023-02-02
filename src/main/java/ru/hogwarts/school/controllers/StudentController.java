@@ -37,6 +37,18 @@ public class StudentController {
     public List<Student> findAllStudents() {
         return studentService.findAllStudents();
     }
+    @GetMapping("/count")
+    public Integer countAllStudents() {
+        return studentService.countAllStudents();
+    }
+    @GetMapping("/avg")
+    public Double getAverageAgeOfAllStudents() {
+        return studentService.getAverageAgeOfAllStudents();
+    }
+    @GetMapping("/fiveLast")
+    public List<Student> getFiveLastStudent() {
+        return studentService.getFiveLastStudent();
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Student> getStudentInfo (@PathVariable long id) {
@@ -81,6 +93,10 @@ public class StudentController {
             response.setContentLength(Math.toIntExact(avatar.getFileSize()));
             is.transferTo(os);
         }
+    }
+    @GetMapping(value = "/avatars")
+    public void downloadAvatars (Integer pageNumber, Integer pageSize) {
+        avatarService.findALlAvatars(pageNumber, pageSize);
     }
 
     @PostMapping
