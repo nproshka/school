@@ -71,48 +71,13 @@ public class StudentController {
     public Faculty findFaculty (@RequestParam long id) {
         return studentService.findStudentFaculty(id);
     }
-    @GetMapping(value = "/{id}/avatar/preview")
-    public ResponseEntity<byte[]> downloadAvatar (@PathVariable Long id) {
-        Avatar avatar = avatarService.findAvatarByStudentId(id);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
-        headers.setContentLength(avatar.getData().length);
-
-        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
-    }
-    @GetMapping(value = "/{id}/avatar/avatar")
-    public void downloadAvatar (@PathVariable Long id, HttpServletResponse response) throws IOException {
-        Avatar avatar = avatarService.findAvatarByStudentId(id);
-
-        Path path = Path.of(avatar.getFilePath());
-
-        try (InputStream is = Files.newInputStream(path);
-             OutputStream os = response.getOutputStream();) {
-            response.setContentType(avatar.getMediaType());
-            response.setContentLength(Math.toIntExact(avatar.getFileSize()));
-            is.transferTo(os);
-        }
-    }
-    @GetMapping(value = "/avatars")
-    public void downloadAvatars (Integer pageNumber, Integer pageSize) {
-        avatarService.findALlAvatars(pageNumber, pageSize);
-    }
 
     @PostMapping
     public Student createStudent (@RequestBody Student student) {
         studentService.createStudent(student);
         return student;
     }
-    @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadAvatar (@PathVariable Long id, @RequestParam MultipartFile avatarFile) throws IOException {
-        if (avatarFile.getSize() > 1024 * 300) {
-            return ResponseEntity.badRequest().body("File is too big");
-        }
 
-        avatarService.uploadAvatar(id, avatarFile);
-        return ResponseEntity.ok().build();
-    }
 
     @PutMapping
     public ResponseEntity<Student> editStudent (@RequestBody Student student) {
