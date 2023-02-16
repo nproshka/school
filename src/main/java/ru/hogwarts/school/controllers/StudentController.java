@@ -67,6 +67,14 @@ public class StudentController {
     public List<Student> sortAgeStudentBetween (@RequestParam int minAge, @RequestParam int maxAge) {
         return studentService.findAllStudentsBetween(minAge, maxAge);
     }
+    @GetMapping("/filterStudent")
+    public List<Student> getStudentsWithFirstLetterA () {
+        return studentService.getStudentsWithFirstLetterA();
+    }
+    @GetMapping("/filterStudent2")
+    public Integer[] getAverageStudentAgeByStream () {
+        return studentService.getAverageStudentAgeByStream();
+    }
     @GetMapping("/findFaculty")
     public Faculty findFaculty (@RequestParam long id) {
         return studentService.findStudentFaculty(id);

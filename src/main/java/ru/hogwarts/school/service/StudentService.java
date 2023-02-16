@@ -7,7 +7,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -68,5 +68,19 @@ public class StudentService {
         logger.debug("Was invoked method for get last five student");
         return studentRepository.getFiveLastStudent();
     }
+    public List<Student> getStudentsWithFirstLetterA() {
+        logger.debug("Was invoked method for getStudentsWithFirstLetterA");
+        List<Student> filteredStudent = studentRepository.findAll()
+                .stream()
+                .filter(f -> f.getName().toLowerCase().toUpperCase().startsWith("А"))
+                .toList();
+        return filteredStudent;
+    }
+    public Integer[] getAverageStudentAgeByStream() {
+
+
+        return studentRepository.getAgeList();
+    }
+
 
 }

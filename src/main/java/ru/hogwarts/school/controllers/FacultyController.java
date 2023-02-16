@@ -46,6 +46,10 @@ public class FacultyController {
     public List<Faculty> sortColorStudent (@PathVariable String color) {
         return facultyService.findFacultyByColor(color);
     }
+    @GetMapping("/longName")
+    public String getLengthiestName () {
+        return facultyService.getLengthiestName();
+    }
 
     @PostMapping
     public Faculty createFaculty (@RequestBody Faculty faculty) {

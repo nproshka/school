@@ -25,5 +25,9 @@ public class InfoController {
     public Integer getPort() {
         return infoService.getPort();
     }
+    @GetMapping("/number")
+    public Integer getNumber() {
+        return infoService.getNumber();
+    }
 
 }

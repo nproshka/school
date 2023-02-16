@@ -9,6 +9,7 @@ import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -59,6 +60,15 @@ public class FacultyService {
     public List<Faculty> findFacultyByColorOrName(String color, String name) {
         logger.debug("Was invoke method for find faculty by color or name");
         return facultyRepository.findByColorIgnoreCaseOrNameIgnoreCase(color, name);
+    }
+    public String getLengthiestName() {
+
+        String longName = String.valueOf(facultyRepository.findAll()
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length)));
+
+        return longName;
     }
 
 }
