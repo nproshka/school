@@ -21,6 +21,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "SELECT * FROM student OFFSET 1", nativeQuery = true)
     List<Student> getFiveLastStudent();
     @Query(value = "SELECT age FROM student ", nativeQuery = true)
-    Integer[] getAgeList();
+    List<Student> getAgeList();
 
 }

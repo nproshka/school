@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.OptionalDouble;
 
 @RestController
 @RequestMapping("students")
@@ -72,7 +73,7 @@ public class StudentController {
         return studentService.getStudentsWithFirstLetterA();
     }
     @GetMapping("/filterStudent2")
-    public Integer[] getAverageStudentAgeByStream () {
+    public OptionalDouble getAverageStudentAgeByStream () {
         return studentService.getAverageStudentAgeByStream();
     }
     @GetMapping("/findFaculty")

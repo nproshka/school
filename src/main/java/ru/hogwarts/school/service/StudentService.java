@@ -76,10 +76,8 @@ public class StudentService {
                 .toList();
         return filteredStudent;
     }
-    public Integer[] getAverageStudentAgeByStream() {
-
-
-        return studentRepository.getAgeList();
+    public OptionalDouble getAverageStudentAgeByStream() {
+        return studentRepository.findAll().stream().mapToInt(Student::getAge).average();
     }
 
 

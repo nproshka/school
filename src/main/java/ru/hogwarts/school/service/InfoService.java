@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -21,11 +23,13 @@ public class InfoService {
 
     public Integer getNumber() {
         logger.debug("Создан метод получения числа");
-        return Stream
-                .iterate(1, a -> a +1)
-                .limit(1_000_000)
-                .parallel()
-                .reduce(0, (a, b) -> a + b );
+        final int LIMIT = 1_000_000;
+        List<Integer> test = new ArrayList<>();
+        for (int i = 1; i < 1_000_001; i++) {
+            test.add(i);
+        }
+        return Stream.of(test).
+                reduce(0, Integer::sum);
     }
 
 }
