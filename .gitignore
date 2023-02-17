@@ -39,5 +39,6 @@ out/
 /HELP.md
 /gradlew.bat
 /gradlew
-/src/main/resources/
 /gradle/
+/src/main/resources/static/
+/src/main/resources/templates/
