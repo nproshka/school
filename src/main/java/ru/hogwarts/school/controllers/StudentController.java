@@ -64,6 +64,14 @@ public class StudentController {
     public List<Student> sortAgeStudent (@PathVariable int age) {
         return studentService.findStudentByAge(age);
     }
+    @GetMapping("/test")
+    public List<Student> getAllStudentsInDifThread () {
+        return studentService.getAllStudentsInDifThread();
+    }
+    @GetMapping("/test2")
+    public List<Student> getAllStudentsInDifThreadWithSynchronized () {
+        return studentService.getAllStudentsInDifThreadWithSynchronized();
+    }
     @GetMapping("/age")
     public List<Student> sortAgeStudentBetween (@RequestParam int minAge, @RequestParam int maxAge) {
         return studentService.findAllStudentsBetween(minAge, maxAge);
